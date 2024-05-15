@@ -1,6 +1,6 @@
 matplotlib 
 numpy
 ultralytics
-opencv-python-headless
+opencv-python
 streamlit
 altair==4.2.0
