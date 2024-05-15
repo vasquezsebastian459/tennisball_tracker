@@ -3,3 +3,5 @@ numpy
 ultralytics
 opencv-python
 streamlit
+altair==4.2.0
+opencv-python
