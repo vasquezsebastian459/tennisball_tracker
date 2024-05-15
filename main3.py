@@ -174,7 +174,7 @@ def main(video_path,result_video_path,model_path,confidence):
     # Cleanup
     cap.release()
     out.release()
-    cv2.destroyAllWindows()
+    # cv2.destroyAllWindows()
     print(f"progress {total_frames / total_frames * 100}", flush=True)
     print("Detections Completed!")
     
