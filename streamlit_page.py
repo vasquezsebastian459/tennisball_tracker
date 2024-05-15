@@ -5,21 +5,21 @@ import tempfile
 from datetime import datetime
 import sys
 
-# Print Python version and path
-st.write(f"Python version: {sys.version}")
-st.write(f"Python executable: {sys.executable}")
+# # Print Python version and path
+# st.write(f"Python version: {sys.version}")
+# st.write(f"Python executable: {sys.executable}")
 
-# Print installed packages
-st.write("Installed packages:")
-installed_packages = subprocess.check_output([sys.executable, "-m", "pip", "freeze"]).decode("utf-8")
-st.text(installed_packages)
+# # Print installed packages
+# st.write("Installed packages:")
+# installed_packages = subprocess.check_output([sys.executable, "-m", "pip", "freeze"]).decode("utf-8")
+# st.text(installed_packages)
 
-# Try importing cv2
-try:
-    import cv2
-    st.write("Successfully imported cv2")
-except ImportError as e:
-    st.error(f"Error importing cv2: {e}")
+# # Try importing cv2
+# try:
+#     import cv2
+#     st.write("Successfully imported cv2")
+# except ImportError as e:
+#     st.error(f"Error importing cv2: {e}")
 
 # Function to update Streamlit progress bar
 def update_progress(progress):
@@ -34,7 +34,7 @@ def run_main(model_number, input_video_path, output_video_path, confidence, prog
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, universal_newlines=True)
     
     for line in process.stdout:
-        print(line.strip())  # Output to console for debugging
+        # print(line.strip())  # Output to console for debugging
         if 'progress' in line:
             progress_percent = float(line.split()[-1])
             progress_callback(progress_percent / 100)  # Normalize to 0-1 if needed
