@@ -26,38 +26,31 @@ def update_progress(progress):
     progress_bar.progress(progress)
 
 # Function to run main.py with selected options and update progress
-def run_main(model_number, input_video_path, output_video_path,confidence ,progress_callback):
-    # Build the command to run main2.py with arguments
+def run_main(model_number, input_video_path, output_video_path, confidence, progress_callback):
+    python_executable = sys.executable  # Use the same Python executable
+    command = f"{python_executable} -u main3.py --model {model_number} --input_video_path {input_video_path} --output_video_path {output_video_path} --conf {confidence}"
+    print(command)  # Optional: Output command to console for debugging
     
-    command = f"python -u main3.py --model {model_number} --input_video_path {input_video_path} --output_video_path {output_video_path} --conf {confidence}"
-    # python -u main2.py --model_num 3 --video_name djokovic_sonego.mp4 --conf 0.1
-    # python -u main3.py --model 3 --input_video_path input_videos/djokovic_sonego.mp4 --output_video_path output_videos/djokovic_sonego_model2_conf1.mp4 --conf 0.1
-    print(command)
-    # Start the subprocess
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, universal_newlines=True)
     
-    # Read output continuously
     for line in process.stdout:
-        print(line.strip())  # Optional: Output to console for debugging
+        print(line.strip())  # Output to console for debugging
         if 'progress' in line:
             progress_percent = float(line.split()[-1])
             progress_callback(progress_percent / 100)  # Normalize to 0-1 if needed
     
-
-    # Read errors continuously
     for line in process.stderr:
         st.error(line.strip())  # Output errors to Streamlit
         print(f"Error: {line.strip()}")  # Output errors to console for debugging
     
-    # Finalize process
     process.stdout.close()
     process.stderr.close()
     return_code = process.wait()
-    # Check return code
+    
     if return_code == 0:
-        return True, "Clip processed Sucessfully!"
+        return True, "Clip processed successfully!"
     else:
-        return False, "Error in processing"
+        return False, "Error in processing. Check the logs for more details."
 
 # Streamlit User Interface
 st.title('Tennis Ball Tracking')
