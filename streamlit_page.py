@@ -3,6 +3,23 @@ import subprocess
 import os
 import tempfile
 from datetime import datetime
+import sys
+
+# Print Python version and path
+st.write(f"Python version: {sys.version}")
+st.write(f"Python executable: {sys.executable}")
+
+# Print installed packages
+st.write("Installed packages:")
+installed_packages = subprocess.check_output([sys.executable, "-m", "pip", "freeze"]).decode("utf-8")
+st.text(installed_packages)
+
+# Try importing cv2
+try:
+    import cv2
+    st.write("Successfully imported cv2")
+except ImportError as e:
+    st.error(f"Error importing cv2: {e}")
 
 # Function to update Streamlit progress bar
 def update_progress(progress):
