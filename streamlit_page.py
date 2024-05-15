@@ -15,7 +15,7 @@ def run_main(model_number, input_video_path, output_video_path,confidence ,progr
     command = f"python -u main3.py --model {model_number} --input_video_path {input_video_path} --output_video_path {output_video_path} --conf {confidence}"
     # python -u main2.py --model_num 3 --video_name djokovic_sonego.mp4 --conf 0.1
     # python -u main3.py --model 3 --input_video_path input_videos/djokovic_sonego.mp4 --output_video_path output_videos/djokovic_sonego_model2_conf1.mp4 --conf 0.1
-
+    print(command)
     # Start the subprocess
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, universal_newlines=True)
     
@@ -26,8 +26,15 @@ def run_main(model_number, input_video_path, output_video_path,confidence ,progr
             progress_percent = float(line.split()[-1])
             progress_callback(progress_percent / 100)  # Normalize to 0-1 if needed
     
+
+    # Read errors continuously
+    for line in process.stderr:
+        st.error(line.strip())  # Output errors to Streamlit
+        print(f"Error: {line.strip()}")  # Output errors to console for debugging
+    
     # Finalize process
     process.stdout.close()
+    process.stderr.close()
     return_code = process.wait()
     # Check return code
     if return_code == 0:
