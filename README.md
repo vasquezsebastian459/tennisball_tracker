@@ -32,7 +32,7 @@ This repository contains a **Streamlit-based application** that allows users to 
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/tennis-ball-ai-tracker.git
+    git clone https://github.com/vasquezsebastian459/tennisball_tracker.git
     ```
 
 2. Install the required dependencies:
